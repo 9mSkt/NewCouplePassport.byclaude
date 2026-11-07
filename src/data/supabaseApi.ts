@@ -1,3 +1,4 @@
+import { usernameToEmail, usernameToPassword } from '../lib/username';
 import { uuid } from '../lib/uuid';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import {
@@ -118,12 +119,16 @@ export function createSupabaseApi(url: string, anonKey: string): Api {
       });
       return () => data.subscription.unsubscribe();
     },
-    async signIn(email) {
-      const { error } = await sb.auth.signInWithOtp({
-        email,
-        options: { shouldCreateUser: false, emailRedirectTo: window.location.origin },
+    async signIn(username) {
+      const { error } = await sb.auth.signInWithPassword({
+        email: usernameToEmail(username),
+        password: usernameToPassword(username),
       });
-      if (error) fail(error);
+      if (error) {
+        if (/invalid login credentials|invalid_credentials/i.test(`${error.message} ${error.code ?? ''}`))
+          throw new ApiError('bad_login', error.message);
+        fail(error);
+      }
     },
     async signOut() {
       await sb.auth.signOut();

@@ -37,9 +37,10 @@ With no Supabase keys the app runs in **demo mode**: everything is stored in you
    1. `supabase/migrations/001_schema.sql` — tables, RLS, triggers, `check_in()` / `check_missions()`, private `photos` bucket
    2. `supabase/migrations/002_countries.sql` — country → continent reference data
 3. **Authentication → Sign In / Providers**: keep **Email** on, turn **off** "Allow new users to sign up".
-4. **Authentication → URL Configuration**: set **Site URL** (and a Redirect URL) to your deployed address, e.g. `https://couple-passport.pages.dev`.
-5. **Authentication → Users → Invite user**: invite both couple emails and your own (issuer) email.
-6. Open `supabase/seed.sql`, edit the lines marked `<-- EDIT` (names, wedding date/place, emails, sticky note) and run it. It creates the book, the memberships, the wedding stamp and the 4 default missions.
+4. Paste `supabase/seed.sql` into the SQL Editor, change the lines marked `<-- EDIT` (3 usernames, names, wedding date/place, sticky note) and run it. It creates the 3 logins, the book, the wedding stamp and the 4 default missions.
+
+**Logins are username only.** Supabase stores each username as `<username>@couplepassport.local` with a password derived from the username, so nobody types one and no email is ever sent. ⚠ The username is the only key — anyone who knows it can open the passport — so pick hard-to-guess usernames (e.g. a name plus a few random characters), especially the issuer's, which can read every secret message.
+
 
 ### 2. Front-end
 ```bash
@@ -52,9 +53,10 @@ npm run build
 Deploy `dist/` to either:
 - **Cloudflare Pages** — build command `npm run build`, output `dist`, add the two `VITE_…` env vars. `public/_redirects` and `public/_headers` are picked up automatically.
 - **Vercel** — framework "Vite", same env vars. `vercel.json` handles SPA routing and headers.
+- **Render** — New → Blueprint → this repo. `render.yaml` sets up a free static site (`https://couple-passport.onrender.com`) with SPA routing and headers, and asks for the two `VITE_…` values.
 
 ### 3. Write the secret messages
-Sign in with your issuer email → tap **Issuer** (top bar) → edit the data page, sticky note and each mission's secret message. You can add your own missions (conditions: first trip, N country stamps, anniversary check-in, N continents, N different cities).
+Sign in with your issuer username → tap **Issuer** (top bar) → edit the data page, sticky note and each mission's secret message. You can add your own missions (conditions: first trip, N country stamps, anniversary check-in, N continents, N different cities).
 
 ### 4. Keep-alive & backups (GitHub Actions)
 Add repository secrets (**Settings → Secrets and variables → Actions**):
@@ -70,7 +72,7 @@ Add repository secrets (**Settings → Secrets and variables → Actions**):
 **If the project ever pauses anyway:** Supabase dashboard → your project → **Restore project**. Data is kept; it takes a few minutes.
 
 ### 5. Gift packaging
-Print a QR code of the site URL in the wedding card. The couple scans it, enters their email, taps the magic link, and their first (wedding) stamp is already there.
+Print a QR code of the site URL in the wedding card. Write their username inside the card too. They scan, sign in, and their first (wedding) stamp is already there.
 
 ---
 
@@ -103,7 +105,7 @@ Print a QR code of the site URL in the wedding card. The couple scans it, enters
 | Q1 | Names & date | Sample MIN ♥ TON, 21 Nov 2026, Bangkok — set real values in `seed.sql` or the Issuer page |
 | Q3 | Stamp per country or per trip | One stamp per country; revisits add visits/cities |
 | Q4 | Issuer sees photos? | No |
-| Q5 | Login | Email magic link, invite-only |
+| Q5 | Login | Username only (created by `seed.sql`), no sign-ups |
 | Q7 | Missions | The 4 proposed ones, plus the issuer can add custom ones in-app |
 | Q9 | "Together" check-in | Left for v1.1 |
 | — | "Around the World" target | 6 continents (Antarctica optional) |

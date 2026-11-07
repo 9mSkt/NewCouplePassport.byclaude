@@ -1,3 +1,4 @@
+import { displayLogin } from './lib/username';
 import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { BrowserRouter, Link, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { api } from './data/api';
@@ -94,7 +95,7 @@ function AuthGate() {
     return (
       <Phone>
         <TopBar signedIn />
-        <NotYours email={gate.session.email ?? ''} />
+        <NotYours email={displayLogin(gate.session.email)} />
       </Phone>
     );
 

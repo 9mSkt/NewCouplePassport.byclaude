@@ -2,6 +2,8 @@
 // then checks RLS, the 5-photo limit, check_in() and mission unlocking. Usage: npm run test:sql
 import { PGlite } from '@electric-sql/pglite';
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+const md5 = (s) => createHash('md5').update(s).digest('hex');
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -17,7 +19,17 @@ async function expectErr(sql, params, re, m) {
 await db.exec(`
 create role anon nologin; create role authenticated nologin;
 create schema auth; create schema storage;
-create table auth.users (id uuid primary key, email text);
+create table auth.users (
+  instance_id uuid, id uuid primary key, aud text, role text, email text, encrypted_password text,
+  email_confirmed_at timestamptz, raw_app_meta_data jsonb, raw_user_meta_data jsonb,
+  created_at timestamptz, updated_at timestamptz,
+  confirmation_token text, recovery_token text, email_change text, email_change_token_new text);
+create table auth.identities (
+  id uuid primary key, user_id uuid references auth.users, provider_id text, identity_data jsonb, provider text,
+  last_sign_in_at timestamptz, created_at timestamptz, updated_at timestamptz);
+create schema extensions;
+create function extensions.gen_salt(t text) returns text language sql as $$ select '$2a$06$stub' $$;
+create function extensions.crypt(p text, s text) returns text language sql as $$ select s || md5(p) $$;
 create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.uid', true), '')::uuid $$;
 create table storage.buckets (id text primary key, name text, public boolean, file_size_limit bigint, allowed_mime_types text[]);
 create table storage.objects (id uuid primary key default gen_random_uuid(), bucket_id text, name text);
@@ -32,14 +44,35 @@ for (const f of ['001_schema.sql', '002_countries.sql']) {
 await db.exec(`grant select, insert, update, delete on all tables in schema public to authenticated;
                grant select, insert, update, delete on storage.objects to authenticated;`);
 
-const U = { bride: '00000000-0000-0000-0000-00000000000a', groom: '00000000-0000-0000-0000-00000000000b', issuer: '00000000-0000-0000-0000-00000000000c', stranger: '00000000-0000-0000-0000-00000000000d' };
-await db.exec(`insert into auth.users values
-  ('${U.bride}','bride@example.com'),('${U.groom}','groom@example.com'),('${U.issuer}','you@example.com'),('${U.stranger}','x@example.com');`);
-await db.exec(readFileSync(`${repo}/supabase/seed.sql`, 'utf8'));
+const seed = readFileSync(`${repo}/supabase/seed.sql`, 'utf8');
+// The template's sample usernames and invalid usernames are refused and leave nothing behind.
+try { await db.exec(seed); ok(false, 'seed rejects sample usernames (no error)'); }
+catch (e) { ok(/Replace the sample username/.test(e.message), `seed rejects sample usernames → ${e.message.slice(0, 60)}`); }
+const seeded = seed
+  .replace("'partner-a-change-me'", "'test-a'")
+  .replace("'partner-b-change-me'", "'test-b'")
+  .replace("'issuer-change-me'", "'test-issuer'");
+try { await db.exec(seeded.replace("make_login('test-b')", "make_login('bad name!')")); ok(false, 'seed rejects invalid username (no error)'); }
+catch (e) { ok(/is not allowed/.test(e.message), `seed rejects invalid username → ${e.message.slice(0, 60)}`); }
+ok((await db.query('select count(*)::int n from auth.users')).rows[0].n === 0, 'rejected seeds created no users');
+await db.exec(seeded);
 const bookId = (await db.query('select id from books')).rows[0].id;
 ok(!!bookId, 'seed created a book');
 ok((await db.query('select count(*)::int n from book_members')).rows[0].n === 3, 'seed added 3 members');
 ok((await db.query('select count(*)::int n from missions')).rows[0].n === 4, 'seed added 4 missions');
+const logins = (await db.query(`select u.email, m.role, u.encrypted_password p, (select count(*)::int from auth.identities i where i.user_id = u.id) ids
+  from auth.users u join book_members m on m.user_id = u.id order by m.role, u.created_at`)).rows;
+ok(logins.every((r) => r.email.endsWith('@couplepassport.local') && r.ids === 1 && r.p === '$2a$06$stub' + md5('cp-login:' + r.email.split('@')[0])),
+  `seed created username logins (${logins.map((r) => r.email.split('@')[0]).join(', ')}) with the app's derived password + identities`);
+await db.exec(seeded); // re-running must not create a second book
+ok((await db.query('select count(*)::int n from books')).rows[0].n === 1, 're-running seed does not duplicate the book');
+const U = {
+  bride: (await db.query(`select user_id from book_members where role = 'couple' order by user_id limit 1`)).rows[0].user_id,
+  groom: (await db.query(`select user_id from book_members where role = 'couple' order by user_id desc limit 1`)).rows[0].user_id,
+  issuer: (await db.query(`select user_id from book_members where role = 'issuer'`)).rows[0].user_id,
+  stranger: '00000000-0000-0000-0000-00000000000d',
+};
+await db.exec(`insert into auth.users (id, email) values ('${U.stranger}','x@couplepassport.local');`);
 
 async function as(user) {
   await db.exec(`reset role; select set_config('request.uid', '${user ?? ''}', false); set role authenticated;`);

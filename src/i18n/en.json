@@ -2,13 +2,11 @@
   "cover.open": "Open the book",
   "cover.footer": "A wedding gift from your dear friends ♡",
   "cover.sticker": "JUST MARRIED!",
-
   "nav.book": "Book",
   "nav.stamps": "Stamps",
   "nav.map": "Map",
   "nav.missions": "Missions",
   "nav.issuer": "Issuer",
-
   "data.photoOf": "Photo of {name}",
   "data.addPhoto": "Tap to add a photo",
   "data.name": "Name",
@@ -17,7 +15,6 @@
   "data.issuedBy": "Issued by",
   "data.noteFrom": "— from {issuer}",
   "data.editNote": "Edit note",
-
   "stamps.title": "Our stamp book",
   "stamps.countries": "Countries",
   "stamps.cities": "Cities",
@@ -28,7 +25,6 @@
   "stamps.hint3": "anniversary?",
   "stamps.wedding": "WEDDING",
   "stamps.openStamp": "Open {country} stamp",
-
   "checkin.title": "Where are you two?",
   "checkin.intro": "We'll use your phone's location to find the country. Only the country and city are saved in your book.",
   "checkin.useLocation": "Use my location",
@@ -49,7 +45,6 @@
   "checkin.again": "Back to the stamp book",
   "checkin.onlyCouple": "Only the couple can check in.",
   "checkin.noResults": "No country matches “{q}”",
-
   "detail.checkedIn": "CHECKED IN",
   "detail.photos": "Memory photos",
   "detail.addPhoto": "+ Add photo",
@@ -71,27 +66,22 @@
   "detail.confirmDeleteStamp": "Remove the {country} stamp and all its photos? This can't be undone.",
   "detail.close": "Close",
   "detail.weddingCaption": "Where it all began",
-
   "missions.intro": "Your friends hid secret messages in this book. Complete a mission and its message unlocks by itself.",
   "missions.secretUnlocked": "Secret message #{n} unlocked!",
   "missions.tapSeal": "Tap the seal to open",
   "missions.locked": "Locked",
   "missions.done": "Done",
   "missions.empty": "No missions yet.",
-
   "map.soon": "The world map is coming in the anniversary update (v1.1). For now, here are the countries you've collected:",
-
   "login.title": "Open your passport",
-  "login.intro": "Enter the email your friend registered for you. We'll send you a magic link — no password needed.",
-  "login.email": "Email",
-  "login.send": "Send magic link",
-  "login.sending": "Sending…",
-  "login.sent": "Check your inbox and tap the link to open your passport.",
-  "login.error": "Couldn't send the link: {msg}",
-
+  "login.intro": "Type the username your friend gave you.",
+  "login.username": "Username",
+  "login.signIn": "Open passport",
+  "login.signingIn": "Opening…",
+  "login.wrong": "We can't find that username. Check the spelling, or ask the friend who gave you the gift.",
+  "login.badUsername": "Usernames are 3–30 letters or numbers (a–z, 0–9, . _ -).",
   "notyours.title": "This passport isn't yours",
-  "notyours.body": "You're signed in as {email}, but this email isn't on any passport. Ask the friend who gave you the gift to add it.",
-
+  "notyours.body": "You're signed in as {email}, but this login isn't on any passport. Ask the friend who gave you the gift to add it.",
   "issuer.title": "Issuer desk",
   "issuer.intro": "Only you (the issuer) can see this page. The couple can't read locked messages.",
   "issuer.book": "Data page",
@@ -121,13 +111,11 @@
   "issuer.unlockedOn": "Unlocked {date}",
   "issuer.stillLocked": "Still locked",
   "issuer.saved": "Saved ✓",
-
   "rule.first_trip": "First trip (≥ N stamps besides the wedding)",
   "rule.stamps_count": "Country stamps (≥ N, wedding not counted)",
   "rule.anniversary": "Check in on the wedding anniversary (N years)",
   "rule.continents": "Continents visited (≥ N)",
   "rule.cities_count": "Different cities (≥ N)",
-
   "demo.banner": "Demo mode — data stays in this browser.",
   "demo.viewAs": "View as",
   "demo.couple": "Couple",
@@ -135,14 +123,12 @@
   "demo.reset": "Reset sample",
   "demo.empty": "Start empty",
   "demo.confirmReset": "Erase everything in this demo and start again?",
-
   "common.loading": "Loading…",
   "common.back": "Back",
   "common.cancel": "Cancel",
   "common.signOut": "Sign out",
   "common.retry": "Try again",
   "common.language": "Language",
-
   "error.generic": "Something went wrong: {msg}",
   "error.photoLimit": "This country already has 5 photos.",
   "error.notAllowed": "You don't have permission to do that.",

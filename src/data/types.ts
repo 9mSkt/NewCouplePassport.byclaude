@@ -128,7 +128,7 @@ export const PHOTO_LIMIT = 5;
 
 export class ApiError extends Error {
   constructor(
-    public code: 'photo_limit' | 'not_allowed' | 'not_found' | 'unsupported_image' | 'network' | 'unknown',
+    public code: 'photo_limit' | 'bad_login' | 'not_allowed' | 'not_found' | 'unsupported_image' | 'network' | 'unknown',
     message?: string,
   ) {
     super(message ?? code);
@@ -139,7 +139,7 @@ export interface Api {
   mode: 'demo' | 'supabase';
   getSession(): Promise<Session | null>;
   onAuthChange(cb: (s: Session | null) => void): () => void;
-  signIn(email: string): Promise<void>;
+  signIn(username: string): Promise<void>;
   signOut(): Promise<void>;
 
   loadBook(): Promise<{ book: Book; role: Role } | null>;

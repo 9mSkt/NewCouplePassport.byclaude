@@ -2,13 +2,11 @@
   "cover.open": "เปิดเล่ม",
   "cover.footer": "ของขวัญวันแต่งงาน จากเพื่อนรัก ♡",
   "cover.sticker": "JUST MARRIED!",
-
   "nav.book": "เล่ม",
   "nav.stamps": "แสตมป์",
   "nav.map": "แผนที่",
   "nav.missions": "ภารกิจ",
   "nav.issuer": "ผู้ออกเล่ม",
-
   "data.photoOf": "รูปของ {name}",
   "data.addPhoto": "แตะเพื่อเพิ่มรูป",
   "data.name": "ชื่อ",
@@ -17,7 +15,6 @@
   "data.issuedBy": "ออกโดย",
   "data.noteFrom": "— จาก {issuer}",
   "data.editNote": "แก้ไขโน้ต",
-
   "stamps.title": "สมุดแสตมป์ของเรา",
   "stamps.countries": "ประเทศ",
   "stamps.cities": "เมือง",
@@ -28,7 +25,6 @@
   "stamps.hint3": "ครบรอบ?",
   "stamps.wedding": "WEDDING",
   "stamps.openStamp": "เปิดแสตมป์ {country}",
-
   "checkin.title": "ตอนนี้อยู่ที่ไหนกัน?",
   "checkin.intro": "เราจะใช้ตำแหน่งจากมือถือเพื่อหาประเทศ เก็บไว้ในเล่มแค่ชื่อประเทศและเมืองเท่านั้น",
   "checkin.useLocation": "ใช้ตำแหน่งของฉัน",
@@ -49,7 +45,6 @@
   "checkin.again": "กลับไปสมุดแสตมป์",
   "checkin.onlyCouple": "เฉพาะคู่บ่าวสาวเท่านั้นที่เช็คอินได้",
   "checkin.noResults": "ไม่พบประเทศ “{q}”",
-
   "detail.checkedIn": "CHECKED IN",
   "detail.photos": "รูปความทรงจำ",
   "detail.addPhoto": "+ เพิ่มรูป",
@@ -71,27 +66,22 @@
   "detail.confirmDeleteStamp": "ลบแสตมป์ {country} และรูปทั้งหมดใช่ไหม? ย้อนกลับไม่ได้นะ",
   "detail.close": "ปิด",
   "detail.weddingCaption": "จุดเริ่มต้นของเรา",
-
   "missions.intro": "เพื่อนแอบซ่อนข้อความลับไว้ในเล่มนี้ ทำภารกิจสำเร็จเมื่อไหร่ ข้อความจะปลดล็อกเอง",
   "missions.secretUnlocked": "ข้อความลับ #{n} ปลดล็อกแล้ว!",
   "missions.tapSeal": "แตะตราประทับเพื่อเปิด",
   "missions.locked": "ล็อกอยู่",
   "missions.done": "สำเร็จ",
   "missions.empty": "ยังไม่มีภารกิจ",
-
   "map.soon": "แผนที่โลกจะมาในอัปเดตวันครบรอบ (v1.1) ตอนนี้ดูประเทศที่สะสมได้ก่อนนะ:",
-
   "login.title": "เปิดพาสปอร์ตของคุณ",
-  "login.intro": "ใส่อีเมลที่เพื่อนลงทะเบียนไว้ให้ เราจะส่งลิงก์วิเศษไปให้ ไม่ต้องจำรหัสผ่าน",
-  "login.email": "อีเมล",
-  "login.send": "ส่งลิงก์เข้าสู่ระบบ",
-  "login.sending": "กำลังส่ง…",
-  "login.sent": "เช็คกล่องอีเมล แล้วแตะลิงก์เพื่อเปิดพาสปอร์ตได้เลย",
-  "login.error": "ส่งลิงก์ไม่สำเร็จ: {msg}",
-
+  "login.intro": "พิมพ์ชื่อผู้ใช้ที่เพื่อนให้ไว้",
+  "login.username": "ชื่อผู้ใช้",
+  "login.signIn": "เปิดพาสปอร์ต",
+  "login.signingIn": "กำลังเปิด…",
+  "login.wrong": "ไม่พบชื่อผู้ใช้นี้ ลองเช็คตัวสะกด หรือถามเพื่อนที่ให้ของขวัญดูนะ",
+  "login.badUsername": "ชื่อผู้ใช้ต้องยาว 3–30 ตัว ใช้ได้แค่ a–z, 0–9, . _ -",
   "notyours.title": "พาสปอร์ตเล่มนี้ไม่ใช่ของคุณ",
-  "notyours.body": "คุณเข้าสู่ระบบด้วย {email} แต่อีเมลนี้ยังไม่อยู่ในพาสปอร์ตเล่มไหนเลย ลองถามเพื่อนที่ให้ของขวัญให้เพิ่มอีเมลนี้นะ",
-
+  "notyours.body": "คุณเข้าสู่ระบบด้วย {email} แต่บัญชีนี้ยังไม่อยู่ในพาสปอร์ตเล่มไหนเลย ลองถามเพื่อนที่ให้ของขวัญให้เพิ่มบัญชีนี้นะ",
   "issuer.title": "โต๊ะผู้ออกเล่ม",
   "issuer.intro": "หน้านี้เห็นแค่คุณ (ผู้ออกเล่ม) คู่บ่าวสาวอ่านข้อความที่ยังล็อกอยู่ไม่ได้",
   "issuer.book": "หน้าข้อมูล",
@@ -121,13 +111,11 @@
   "issuer.unlockedOn": "ปลดล็อกเมื่อ {date}",
   "issuer.stillLocked": "ยังล็อกอยู่",
   "issuer.saved": "บันทึกแล้ว ✓",
-
   "rule.first_trip": "ทริปแรก (แสตมป์ ≥ N ไม่นับงานแต่ง)",
   "rule.stamps_count": "จำนวนแสตมป์ประเทศ (≥ N ไม่นับงานแต่ง)",
   "rule.anniversary": "เช็คอินในวันครบรอบแต่งงาน (N ปี)",
   "rule.continents": "จำนวนทวีปที่ไป (≥ N)",
   "rule.cities_count": "จำนวนเมืองที่ไม่ซ้ำกัน (≥ N)",
-
   "demo.banner": "โหมดทดลอง — ข้อมูลเก็บไว้ในเบราว์เซอร์นี้เท่านั้น",
   "demo.viewAs": "ดูในฐานะ",
   "demo.couple": "คู่บ่าวสาว",
@@ -135,14 +123,12 @@
   "demo.reset": "รีเซ็ตตัวอย่าง",
   "demo.empty": "เริ่มเล่มเปล่า",
   "demo.confirmReset": "ลบข้อมูลทดลองทั้งหมดแล้วเริ่มใหม่ใช่ไหม?",
-
   "common.loading": "กำลังโหลด…",
   "common.back": "กลับ",
   "common.cancel": "ยกเลิก",
   "common.signOut": "ออกจากระบบ",
   "common.retry": "ลองอีกครั้ง",
   "common.language": "ภาษา",
-
   "error.generic": "เกิดข้อผิดพลาด: {msg}",
   "error.photoLimit": "ประเทศนี้มีครบ 5 รูปแล้ว",
   "error.notAllowed": "คุณไม่มีสิทธิ์ทำแบบนี้",

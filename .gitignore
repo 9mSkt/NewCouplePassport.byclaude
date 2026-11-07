@@ -6,3 +6,6 @@ dist
 *.log
 .DS_Store
 backup-*.json
+
+# Filled-in seed with real usernames (they are the login keys) — never commit
+supabase/seed.local.sql
