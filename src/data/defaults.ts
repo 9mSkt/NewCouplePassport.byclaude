@@ -1,0 +1,53 @@
+import type { MissionDraft } from './types';
+
+/** Initial missions (spec §F6). Also seeded by public.create_default_missions() in SQL. */
+export const DEFAULT_MISSIONS: Omit<MissionDraft, 'message'>[] = [
+  {
+    key: 'first_trip',
+    rule: 'first_trip',
+    target: 1,
+    titleTh: 'ทริปแรกหลังแต่งงาน',
+    titleEn: 'First trip as newlyweds',
+    descTh: 'เช็คอินประเทศแรกด้วยกัน',
+    descEn: 'Check in to your first country together',
+    icon: 'heart',
+    color: 'pink',
+    sort: 1,
+  },
+  {
+    key: 'collector_5',
+    rule: 'stamps_count',
+    target: 5,
+    titleTh: 'นักสะสมแสตมป์',
+    titleEn: 'Stamp Collector',
+    descTh: 'สะสมแสตมป์ให้ครบ 5 ประเทศ',
+    descEn: 'Collect 5 country stamps',
+    icon: 'stamp',
+    color: 'butter',
+    sort: 2,
+  },
+  {
+    key: 'anniversary_1',
+    rule: 'anniversary',
+    target: 1,
+    titleTh: 'ครบรอบ 1 ปี',
+    titleEn: '1st Anniversary',
+    descTh: 'เช็คอินที่ไหนก็ได้ในวันครบรอบแต่งงาน',
+    descEn: 'Check in anywhere on your wedding anniversary',
+    icon: 'gift',
+    color: 'mint',
+    sort: 3,
+  },
+  {
+    key: 'all_continents',
+    rule: 'continents',
+    target: 6,
+    titleTh: 'รอบโลกด้วยกัน',
+    titleEn: 'Around the World',
+    descTh: 'ไปเยือนให้ครบทุกทวีป (แอนตาร์กติกาไม่บังคับ)',
+    descEn: 'Visit every continent (Antarctica optional)',
+    icon: 'globe',
+    color: 'sky',
+    sort: 4,
+  },
+];
