@@ -3,6 +3,7 @@
  * Used automatically when VITE_SUPABASE_URL / VITE_SUPABASE_ANON_KEY are not set.
  * NOTE: secrets are obviously readable here — the real protection lives in Supabase RLS.
  */
+import { uuid } from '../lib/uuid';
 import { DEFAULT_MISSIONS } from './defaults';
 import {
   ApiError,
@@ -36,7 +37,7 @@ interface DemoState {
   secrets: Record<string, { message: string; unlockedAt: string | null }>;
 }
 
-const uid = () => crypto.randomUUID();
+const uid = () => uuid();
 
 /* ---------- tiny IndexedDB blob store ---------- */
 let dbp: Promise<IDBDatabase> | null = null;

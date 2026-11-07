@@ -1,3 +1,4 @@
+import { uuid } from '../lib/uuid';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 import {
   ApiError,
@@ -171,7 +172,7 @@ export function createSupabaseApi(url: string, anonKey: string): Api {
     },
 
     async setBookPhoto(bookId, slot, img) {
-      const path = `${bookId}/book/${slot}-${crypto.randomUUID()}.${img.ext}`;
+      const path = `${bookId}/book/${slot}-${uuid()}.${img.ext}`;
       const { data: cur } = await sb.from('books').select('partner_a_photo, partner_b_photo').eq('id', bookId).single();
       const up = await sb.storage.from(BUCKET).upload(path, img.blob, { contentType: img.blob.type, upsert: false });
       if (up.error) fail(up.error);
@@ -267,7 +268,7 @@ export function createSupabaseApi(url: string, anonKey: string): Api {
     async addPhoto(bookId, stampId, img, caption) {
       const { count } = await sb.from('photos').select('id', { count: 'exact', head: true }).eq('stamp_id', stampId);
       if ((count ?? 0) >= PHOTO_LIMIT) throw new ApiError('photo_limit');
-      const id = crypto.randomUUID();
+      const id = uuid();
       const path = `${bookId}/${stampId}/${id}.${img.ext}`;
       const up = await sb.storage.from(BUCKET).upload(path, img.blob, { contentType: img.blob.type, upsert: false });
       if (up.error) fail(up.error);
