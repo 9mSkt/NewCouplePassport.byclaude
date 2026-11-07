@@ -1,0 +1,34 @@
+# Monthly JSON export of the database (spec §6.6). Stored as a workflow artifact (kept 90 days).
+# Needs repository secrets: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY  (service role — keep the repo private!)
+name: Monthly backup
+
+on:
+  schedule:
+    - cron: '0 4 1 * *' # 1st of every month, 04:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    # Artifacts of public repos are downloadable by anyone — never export secrets/photo paths there.
+    if: github.event.repository.private
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Export tables
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/backup.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: passport-backup-${{ github.run_id }}
+          path: backup-*.json
+          retention-days: 90
+          if-no-files-found: error
